@@ -2,37 +2,28 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 
 export async function POST(req: Request) {
   try {
-    console.log("API route called");
-
-    console.log(
-      "API Key exists:",
-      !!process.env.GEMINI_API_KEY
-    );
-
     const { electricity, transport, flights } =
       await req.json();
-
-    console.log({ electricity, transport, flights });
 
     const genAI = new GoogleGenerativeAI(
       process.env.GEMINI_API_KEY!
     );
 
     const model = genAI.getGenerativeModel({
-      model: "gemini-1.5-flash",
+      model: "gemini-2.5-flash",
     });
 
     const result = await model.generateContent(`
-      Electricity: ${electricity}
-      Transport: ${transport}
-      Flights: ${flights}
+      Electricity Emissions: ${electricity} kg CO₂
+      Transport Emissions: ${transport} kg CO₂
+      Flight Emissions: ${flights} kg CO₂
 
-      Give 3 personalized carbon reduction tips.
+      Give 3 personalized sustainability recommendations
+      to reduce this user's carbon footprint.
+      Keep the response concise and actionable.
     `);
 
     const text = result.response.text();
-
-    console.log("Gemini response:", text);
 
     return Response.json({
       insight: text,
