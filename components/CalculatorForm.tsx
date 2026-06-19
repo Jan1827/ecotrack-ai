@@ -44,9 +44,9 @@ const calculate = () => {
 
 
   return (
-    <div className="bg-white p-6 rounded-xl shadow">
+    <div className="bg-white p-6 rounded-xl shadow text-gray-900">
 
-      <h2 className="text-2xl font-bold mb-4">
+      <h2 className="text-2xl font-bold mb-4 text-gray-900">
         Carbon Calculator
       </h2>
 
