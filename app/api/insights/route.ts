@@ -4,6 +4,11 @@ export async function POST(req: Request) {
   try {
     console.log("API route called");
 
+    console.log(
+      "API Key exists:",
+      !!process.env.GEMINI_API_KEY
+    );
+
     const { electricity, transport, flights } =
       await req.json();
 
