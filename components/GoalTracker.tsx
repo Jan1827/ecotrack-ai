@@ -2,13 +2,21 @@ type Props = {
   currentEmission: number;
 };
 
-export default function GoalTracker({ currentEmission }: Props) {
+export default function GoalTracker({
+  currentEmission,
+}: Props) {
   const target = 200;
 
-  const progress = Math.min(
-    100,
-    Math.max(0, ((target / currentEmission) * 100))
-  );
+  const progress =
+    currentEmission <= 0
+      ? 100
+      : Math.min(
+          100,
+          Math.max(
+            0,
+            (target / currentEmission) * 100
+          )
+        );
 
   return (
     <div className="bg-white p-6 rounded-xl shadow-lg mt-6">
@@ -20,7 +28,10 @@ export default function GoalTracker({ currentEmission }: Props) {
         Target: Stay below {target} kg CO₂
       </p>
 
-      <div className="w-full bg-gray-200 rounded-full h-4">
+      <div
+        className="w-full bg-gray-200 rounded-full h-4"
+        aria-label="Sustainability Progress Bar"
+      >
         <div
           className="bg-green-600 h-4 rounded-full"
           style={{ width: `${progress}%` }}
